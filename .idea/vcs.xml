@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PYPOWER-5.1.15/PYPOWER-5.1.15/matpowercaseframes" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/data/matpower" vcs="Git" />
   </component>
 </project>
