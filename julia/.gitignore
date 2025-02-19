@@ -1,8 +1,0 @@
-*.jl.cov
-*.jl.*.cov
-*.jl.mem
-test/data
-notebooks/.ipynb_checkpoints
-
-*.png
-*.jld
