@@ -59,8 +59,8 @@ Y_sh = SparseArrays.spdiagm(
 ); #shunt admittance matrix
 
 Y = Y_0 + Y_sh
-
-model = Model(Ipopt.Optimizer)
+using Gurobi
+model = Model(Gurobi.Optimizer)
 set_silent(model)
 @variable(
     model,
@@ -68,4 +68,27 @@ set_silent(model)
     lower_bound = P_Gen_lb[i] + Q_Gen_lb[i] * im,
     upper_bound = P_Gen_ub[i] + Q_Gen_ub[i] * im,
 ) # nodal power generation variable
-
+@variable(model, V[1:N] in ComplexPlane(), start = 1.0 + 0.0im) #complex nodal voltages (the system state variables)
+@constraint(model, [i in 1:N], 0.9^2 <= real(V[i])^2 + imag(V[i])^2 <= 1.1^2) #operational constraints for maintaining voltage magnitude levels
+@constraint(model, imag(V[1]) == 0);
+@constraint(model, real(V[1]) >= 0);
+@constraint(model, S_G - S_Demand .== V .* conj(Y * V))
+P_G = real(S_G)
+@objective(
+    model,
+    Min,
+    (0.11 * P_G[1]^2 + 5 * P_G[1] + 150) +
+    (0.085 * P_G[2]^2 + 1.2 * P_G[2] + 600) +
+    (0.1225 * P_G[3]^2 + P_G[3] + 335),
+);
+optimize!(model)
+assert_is_solved_and_feasible(model)
+solution_summary(model)
+objval_solution = round(objective_value(model); digits = 20)
+println("Objective value (feasible solution) : $(objval_solution)")
+DataFrames.DataFrame(;
+    Bus = 1:N,
+    ComplexPowerGen = round.(value.(S_G); digits = 2),
+    VoltageMagnitude = round.(abs.(value.(V)); digits = 2),
+    VoltageAngle_Deg = round.(rad2deg.(angle.(value.(V))); digits = 2),
+)
