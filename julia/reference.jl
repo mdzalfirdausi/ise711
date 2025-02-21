@@ -1,46 +1,46 @@
-struct Bus
-    pd::Float64
-    gs::Float64
-    gens::Vector{Int}
-end
+# struct Bus
+#     pd::Float64
+#     gs::Float64
+#     gens::Vector{Int}
+# end
 
-struct Gen
-    bus::Int
-    pmin::Float64
-    pmax::Float64
-    pstart::Float64
-    cost::Vector{Float64}
-end
+# struct Gen
+#     bus::Int
+#     pmin::Float64
+#     pmax::Float64
+#     pstart::Float64
+#     cost::Vector{Float64}
+# end
 
-struct Line
-    rate::Float64
-    frombus::Int
-    tobus::Int
-    β::Float64
-end
+# struct Line
+#     rate::Float64
+#     frombus::Int
+#     tobus::Int
+#     β::Float64
+# end
 
-mutable struct NetworkReference
-    ref::Dict{Symbol,Any}
+# mutable struct NetworkReference
+#     ref::Dict{Symbol,Any}
     
-    nbus::Int
-    ngen::Int
-    nline::Int
+#     nbus::Int
+#     ngen::Int
+#     nline::Int
 
-    r::Int # reference bus
+#     r::Int # reference bus
 
-    bus::Vector{Bus}
-    gen::Vector{Gen}
-    line::Vector{Line}
+#     bus::Vector{Bus}
+#     gen::Vector{Gen}
+#     line::Vector{Line}
 
-    originalindices::Dict{Symbol,Vector{Int}}
+#     originalindices::Dict{Symbol,Vector{Int}}
 
-    B::Matrix{Float64}
-    π::Matrix{Float64}
+#     B::Matrix{Float64}
+#     π::Matrix{Float64}
 
-    stdω::Vector{Float64}
-    line_prob::Float64
-    bus_prob::Float64
-end
+#     stdω::Vector{Float64}
+#     line_prob::Float64
+#     bus_prob::Float64
+# end
 
 # function NetworkReference(ref::Dict{Symbol,Any};
 #         line_prob::Float64 = 0.9, bus_prob::Float64 = 0.9,
