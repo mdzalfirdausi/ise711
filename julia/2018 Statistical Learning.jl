@@ -1,4 +1,6 @@
 using JuMP, Gurobi, LinearAlgebra, SparseArrays, Distributions
+using DataStructures
+include("reference.jl")
 
 # Load case data
 mpc_file = "pglib-opf-17.08/pglib_opf_case300_ieee.m"
@@ -7,15 +9,13 @@ mpc = PowerModels.parse_file(mpc_file)
 
 # # Extract data
 baseMVA = mpc["baseMVA"]
-bus = mpc["bus"]
+bus = OrderedDict(mpc["bus"])
 branch = mpc["branch"]
 gen = mpc["gen"]
 
 bus_index_dict = Dict(bus[i] => k for i, (k,v) in enumerate(bus))
 
-for k in bus
-    println(k)
-end
+
 # Create bus index mapping
 # bus_index_dict = Dict(bus[i, 1] => i for i in 1:size(bus, 1))
 
