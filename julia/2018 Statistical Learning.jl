@@ -2,6 +2,9 @@ using JuMP, Gurobi, LinearAlgebra, SparseArrays, Distributions
 using DataStructures
 include("reference.jl")
 
+mpc_file = "pglib-opf-17.08/pglib_opf_case30_ieee.m"
+ref = NetworkReference(mpc_file, bus_prob = 0.95, line_prob = 0.95, σscaling = 0.05);
+
 # Load case data
 mpc_file = "pglib-opf-17.08/pglib_opf_case300_ieee.m"
 mpc = PowerModels.parse_file(mpc_file)
@@ -13,8 +16,9 @@ bus = OrderedDict(mpc["bus"])
 branch = mpc["branch"]
 gen = mpc["gen"]
 
-bus_index_dict = Dict(bus[i] => k for i, (k,v) in enumerate(bus))
-
+ref = NetworkReference(mpc_file, bus_prob = 0.95, line_prob = 0.95, σscaling = 0.05);
+wk = PowerModels.build_ref(PowerModels.parse_file(mpc_file))#[:nw][0]
+(wk[:it][:pm][:nw][0])
 
 # Create bus index mapping
 # bus_index_dict = Dict(bus[i, 1] => i for i in 1:size(bus, 1))
