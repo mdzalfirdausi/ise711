@@ -60,7 +60,7 @@ function NetworkReference(ref::Dict{Symbol,Any};
         ref[:gen][genindices[i]]["gen_bus"],
         ref[:gen][genindices[i]]["pmin"],
         ref[:gen][genindices[i]]["pmax"],
-        PowerModels.getstart(ref[:gen],genindices[i],"pg_start"),
+        getstart(ref[:gen],genindices[i],"pg_start"),
         ref[:gen][genindices[i]]["cost"]
     ) for i in 1:ngen]
     nbus, busindices, bus_index = generateindices(ref[:bus])

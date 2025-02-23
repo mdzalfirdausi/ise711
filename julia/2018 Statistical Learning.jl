@@ -2,8 +2,10 @@ using JuMP, Gurobi, LinearAlgebra, SparseArrays, Distributions
 using DataStructures
 include("reference.jl")
 
-mpc_file = "pglib-opf-17.08/pglib_opf_case30_ieee.m"
+mpc_file = "pglib-opf-17.08/pglib_opf_case118_ieee.m"
 ref = NetworkReference(mpc_file, bus_prob = 0.95, line_prob = 0.95, σscaling = 0.05);
+result = solve_dc_opf(mpc_file, Gurobi.Optimizer)
+PowerModels.print_summary(result["solution"])
 
 # Load case data
 mpc_file = "pglib-opf-17.08/pglib_opf_case300_ieee.m"
