@@ -1,8 +1,0 @@
-julia 0.5
-
-Ipopt 
-SCS
-GLPKMathProgInterface
-Pajarito 0.4.0
-
-Logging 0.2.0
