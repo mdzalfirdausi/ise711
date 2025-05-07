@@ -1,2 +1,5 @@
-{
+{"[python]": {
+    "editor.insertSpaces": true, // if you want to use spaces, false for tabs
+    "editor.tabSize": 4,
+},  // you may need a trailing comma here - you've been warned!
 }
