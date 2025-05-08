@@ -1,5 +1,4 @@
-{"[python]": {
-    "editor.insertSpaces": true, // if you want to use spaces, false for tabs
-    "editor.tabSize": 4,
-},  // you may need a trailing comma here - you've been warned!
+{"editor.insertSpaces": true,     // use spaces when you hit Tab
+"editor.tabSize": 4,             // how many spaces per indent
+"editor.detectIndentation": false // don’t override based on file contents
 }
